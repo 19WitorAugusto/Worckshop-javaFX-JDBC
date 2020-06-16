@@ -17,10 +17,10 @@ import javafx.stage.Stage;
 import model.entities.Department;
 import model.services.DepartmentService;
 
-public class DepartmentListController implements Initializable{
-	
-	private DepartmentService service;
-	
+public class DepartmentListController implements Initializable {
+
+	private DepartmentService service;//declarando dependencia;
+
 	@FXML
 	private TableView<Department> tableViewDepartment;
 	@FXML
@@ -29,21 +29,20 @@ public class DepartmentListController implements Initializable{
 	private TableColumn<Department, String> tableColunmName;
 	@FXML
 	private Button btNew;
-	
+
 	private ObservableList<Department> obsList;
-	
-	
+
 	@FXML
 	public void onBtNewAction() {
 		System.out.println("onBtNewAction");
 	}
-	
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		initializeNodes();
-		
-		
+
 	}
+
 	public void setDepartmentService(DepartmentService service) {
 		this.service = service;
 	}
@@ -51,14 +50,17 @@ public class DepartmentListController implements Initializable{
 	private void initializeNodes() {
 		tableColunmId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		tableColunmName.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
-		//para a table view acompanhar a janela
+
+		// para a table view acompanhar a janela
 		Stage stage = (Stage) Main.getMainScene().getWindow();
 		tableViewDepartment.prefHeightProperty().bind(stage.heightProperty());
-		
+
 	}
+
 	public void updateTableView() {
-		if(service == null) {
+		//responsavel por acessar os serviços e carregar os departamentos
+		//e tambem joga-los na ObservableList.  
+		if (service == null) {
 			throw new IllegalStateException("Sercive was null");
 		}
 		List<Department> list = service.findAll();
