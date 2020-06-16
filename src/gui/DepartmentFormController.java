@@ -65,11 +65,10 @@ public class DepartmentFormController implements Initializable {
 			service.saveOrUpdate(entity);
 			notifyDataChangeListener();
 			Utils.currentStage(event).close();
-		}catch(ValidationException e) {
-		setErrorMessages(e.getErrors());
-		}
-			catch (DbException e) {
-		
+		} catch (ValidationException e) {
+			setErrorMessages(e.getErrors());
+		} catch (DbException e) {
+
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
@@ -122,13 +121,14 @@ public class DepartmentFormController implements Initializable {
 		txtId.setText(String.valueOf(entity.getId()));
 		txtName.setText(entity.getName());
 	}
+
 	private void setErrorMessages(Map<String, String> errors) {
 		Set<String> filds = errors.keySet();
-		
-		if(filds.contains("name")) {
+
+		if (filds.contains("name")) {
 			lblError.setText(errors.get("name"));
 		}
-		
+
 	}
 
 }
