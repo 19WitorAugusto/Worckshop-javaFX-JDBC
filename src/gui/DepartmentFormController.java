@@ -1,9 +1,12 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listener.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Contraints;
 import gui.util.Utils;
@@ -21,6 +24,7 @@ public class DepartmentFormController implements Initializable {
 
 	private Department entity;// dependencia
 	private DepartmentService service;
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
 	@FXML
 	private TextField txtId;
@@ -41,6 +45,10 @@ public class DepartmentFormController implements Initializable {
 		this.service = service;
 	}
 
+	public void subscribeDataChengeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+
 	@FXML
 	public void onBtnSaveAction(ActionEvent event) {
 		if (entity == null) {
@@ -52,10 +60,18 @@ public class DepartmentFormController implements Initializable {
 		try {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
+			notifyDataChangeListener();
 			Utils.currentStage(event).close();
 		} catch (DbException e) {
 			Alerts.showAlert("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	private void notifyDataChangeListener() {
+		for (DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChange();
+		}
+
 	}
 
 	private Department getFormData() {
@@ -68,7 +84,7 @@ public class DepartmentFormController implements Initializable {
 
 	@FXML
 	public void onBtnCancelAction(ActionEvent event) {
-		Utils.currentStage(event).close();
+		Utils.currentStage(event).close();// fechando com botao cancelar
 	}
 
 	@Override
