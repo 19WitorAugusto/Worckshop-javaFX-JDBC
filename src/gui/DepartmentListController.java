@@ -28,7 +28,7 @@ import model.services.DepartmentService;
 
 public class DepartmentListController implements Initializable {
 
-	private DepartmentService service;//declarando dependencia;
+	private DepartmentService service;// declarando dependencia;
 
 	@FXML
 	private TableView<Department> tableViewDepartment;
@@ -68,8 +68,8 @@ public class DepartmentListController implements Initializable {
 	}
 
 	public void updateTableView() {
-		//responsavel por acessar os serviços e carregar os departamentos
-		//e tambem joga-los na ObservableList.  
+		// responsavel por acessar os serviços e carregar os departamentos
+		// e tambem joga-los na ObservableList.
 		if (service == null) {
 			throw new IllegalStateException("Sercive was null");
 		}
@@ -77,24 +77,23 @@ public class DepartmentListController implements Initializable {
 		obsList = FXCollections.observableArrayList(list);
 		tableViewDepartment.setItems(obsList);
 	}
-	
+
 	private void createDialogForm(String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
-			
+
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Entre com os dados do departamento");
 			dialogStage.setScene(new Scene(pane));
-			dialogStage.setResizable(false);//nao pode ser redimencionada
-			dialogStage.initOwner(parentStage);//quem é o stage pai da janela.
+			dialogStage.setResizable(false);// nao pode ser redimencionada
+			dialogStage.initOwner(parentStage);// quem é o stage pai da janela.
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-			
-			
-		}catch(IOException e) {
+
+		} catch (IOException e) {
 			Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), AlertType.ERROR);
-			
+
 		}
 	}
 
