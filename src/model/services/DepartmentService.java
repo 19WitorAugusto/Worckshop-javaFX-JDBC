@@ -12,8 +12,15 @@ public class DepartmentService {
 
 	public List<Department> findAll() {
 
-		return dao.findAll();// vai no banco busca todos os dados!
+		return dao.findAll();
 
+		// recuperando dados do banco
+
+		/*
+		 * //dados mocados => MOCK List<Department> list = new ArrayList<>();
+		 * list.add(new Department(1, "Books")); list.add(new Department(2,
+		 * "Computers")); list.add(new Department(3, "Electronics")); return list;
+		 */
 	}
 
 	public void saveOrUpdate(Department obj) {
@@ -27,13 +34,3 @@ public class DepartmentService {
 		dao.deleteById(obj.getId());
 	}
 }
-
-/*
- * MOCK -> retorna dados de mentira (sem ser do banco)
- * 
- * List<Department> list = new ArrayList<>(); list.add(new Department(1,
- * "Books")); list.add(new Department(2, "Computers")); list.add(new
- * Department(3, "Electronics"));
- * 
- * return list;
- */

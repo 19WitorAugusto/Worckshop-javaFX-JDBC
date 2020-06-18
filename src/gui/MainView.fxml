@@ -6,26 +6,27 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainViewController">
-	<content>
-		<VBox prefHeight="326.0" prefWidth="513.0">
-			<children>
-				<MenuBar>
-					<menus>
-						<Menu mnemonicParsing="false" text="Cadastros">
-							<items>
-								<MenuItem fx:id="menuItemSeller" mnemonicParsing="false" onAction="#onMenuItemSellerAction" text="Vendedor" />
-								<MenuItem fx:id="menuItemDepartment" mnemonicParsing="false" onAction="#onMenuItemDepartmentAction" text="Departamentos" />
-							</items>
-						</Menu>
-						<Menu mnemonicParsing="false" text="Help">
-							<items>
-								<MenuItem fx:id="menuItemAbount" mnemonicParsing="false" onAction="#onMenuItemAbount" text="Sobre" />
-							</items>
-						</Menu>
-					</menus>
-				</MenuBar>
-			</children>
-		</VBox>
-	</content>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+   <content>
+      <VBox prefHeight="324.0" prefWidth="315.0">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="CADASTRO">
+                  <items>
+                    <MenuItem fx:id="menuItemSeller" mnemonicParsing="false" onAction="#onMenuItemSellerAction" text="Vendedor" />
+                        <MenuItem fx:id="menuItemDepartment" mnemonicParsing="false" onAction="#onMenuItemDepartmentAction" text="Departamento" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem fx:id="menuItemAbount" mnemonicParsing="false" onAction="#onMenuItemAbount" text="Sobre" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </content>
 </ScrollPane>
