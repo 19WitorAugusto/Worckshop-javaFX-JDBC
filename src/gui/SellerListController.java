@@ -31,6 +31,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Seller;
+import model.services.DepartmentService;
 import model.services.SellerService;
 
 public class SellerListController implements Initializable, DataChangeListener {
@@ -49,10 +50,10 @@ public class SellerListController implements Initializable, DataChangeListener {
 	private TableColumn<Seller, String> TableColumnEmail;
 	@FXML
 	private TableColumn<Seller, Date> TableColumnBirthData;
-	
+
 	@FXML
 	private TableColumn<Seller, Double> TableColumnBaseSalary;
-	
+
 	@FXML
 	private TableColumn<Seller, Seller> tableColumnEDIT;
 	@FXML
@@ -82,7 +83,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 	private void initializeNodes() {
 		TableColumnID.setCellValueFactory(new PropertyValueFactory<>("id"));
 		TableColumnNome.setCellValueFactory(new PropertyValueFactory<>("name"));
-		
+
 		TableColumnEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
 		TableColumnBirthData.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
 		Utils.formatTableColumnDate(TableColumnBirthData, "dd/MM/yyyy");
@@ -114,8 +115,9 @@ public class SellerListController implements Initializable, DataChangeListener {
 			// referencia para o controlador
 			SellerFormController controller = loader.getController();
 			controller.setSeller(obj);
-			controller.setSellerService(new SellerService());
+			controller.setServices(new SellerService(), new DepartmentService());
 			// at. tabela
+			controller.loadAssociatedObjects();
 			controller.subscribeDataChangeListener(this);// me inscrevendo
 
 			controller.updateFormData();
@@ -129,6 +131,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 			dialogStage.showAndWait();
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			Alerts.showAlert("IO EXCEPTIONS", "Error loading view", e.getMessage(), AlertType.ERROR);
 
 		}
@@ -153,8 +156,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 					return;
 				}
 				setGraphic(button);
-				button.setOnAction(
-						event -> createDialogForm(obj, "/gui/SellerForm.fxml", Utils.currentStage(event)));
+				button.setOnAction(event -> createDialogForm(obj, "/gui/SellerForm.fxml", Utils.currentStage(event)));
 			}
 		});
 	}
