@@ -33,7 +33,7 @@ public class mainViewController implements Initializable {
 		loadView("/gui/SellerList.fxml", (SellerListController controller) -> {
 			controller.setSellerService(new SellerService());
 			controller.updateTableView();
-	});
+		});
 	}
 
 	@FXML
