@@ -5,8 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox prefHeight="119.0" prefWidth="205.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<VBox prefHeight="119.0" prefWidth="205.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Sobre">
          <font>
@@ -16,10 +15,25 @@
             <Insets bottom="10.0" left="20.0" right="10.0" top="10.0" />
          </padding>
       </Label>
-      <Label text="JAVAFX Application demo">
+      <Label text="JAVAFX Application">
          <VBox.margin>
             <Insets left="20.0" />
          </VBox.margin>
+      </Label>
+      <Label text="BY WITOR AUGUSTO">
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
+      </Label>
+      <Label text="Ciência da Computação">
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
+      </Label>
+      <Label text="Goiânia-Go">
+         <padding>
+            <Insets left="20.0" top="5.0" />
+         </padding>
       </Label>
    </children>
 </VBox>
