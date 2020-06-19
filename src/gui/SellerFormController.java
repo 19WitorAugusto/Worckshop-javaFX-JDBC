@@ -1,9 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -123,10 +125,34 @@ public class SellerFormController implements Initializable {
 		ValidationException exception = new ValidationException("Validation error!");
 
 		obj.setId(Utils.tryParseToInt(txtId.getText()));
+
 		if (txtName.getText() == null || txtName.getText().trim().equals("")) {
 			exception.addError("name", "o campo não pode ser vazio!");
 		}
+		
 		obj.setName(txtName.getText());
+
+		if (txtEmail.getText() == null || txtEmail.getText().trim().equals("")) {
+			exception.addError("email", "o campo não pode ser vazio!");
+		}
+		
+		obj.setEmail(txtEmail.getText());
+
+		// pega valor do datePicker
+		if(dpBirthDate.getValue() == null ) {
+			exception.addError("birthDate", "o campo não pode ser vazio!");
+		}else {
+			Instant instant = Instant.from(dpBirthDate.getValue().atStartOfDay(ZoneId.systemDefault()));
+			obj.setBirthDate(Date.from(instant));
+		}
+
+		if (txtBaseSalary.getText() == null || txtBaseSalary.getText().trim().equals("")) {
+			exception.addError("baseSalary", "o campo não pode ser vazio!");
+		}
+
+		obj.setBaseSalary(Utils.tryParseToDouble(txtBaseSalary.getText()));
+
+		obj.setDepartment(comboBoxDepartment.getValue());
 		if (exception.getErrors().size() > 0) {
 			throw exception;
 		}
@@ -169,8 +195,8 @@ public class SellerFormController implements Initializable {
 
 			dpBirthDate.setValue(LocalDate.ofInstant(entity.getBirthDate().toInstant(), ZoneId.systemDefault()));
 		}
-		if(entity.getDepartment() == null) {
-			comboBoxDepartment.getSelectionModel().selectFirst();//pega o primeiro da lista de combo
+		if (entity.getDepartment() == null) {
+			comboBoxDepartment.getSelectionModel().selectFirst();// pega o primeiro da lista de combo
 		}
 		comboBoxDepartment.setValue(entity.getDepartment());
 	}
@@ -186,10 +212,14 @@ public class SellerFormController implements Initializable {
 
 	private void setErrorMessage(Map<String, String> errors) {
 		Set<String> filds = errors.keySet();
-
-		if (filds.contains("name")) {
-			lblErrorName.setText(errors.get("name"));
-		}
+				
+		lblErrorName.setText(filds.contains("name") ? errors.get("name") : "");
+		
+		lblErrorEmail.setText(filds.contains("email") ? errors.get("email") : "");
+			
+		lblErrorBaseSalary.setText(filds.contains("baseSalary") ? errors.get("baseSalary") : "");
+		
+		lblErrorBirthDate.setText(filds.contains("birthDate") ? errors.get("birthDate") : "");
 	}
 
 	private void initializeComboBoxDepartment() {
